@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Customer
@@ -10,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="customer", indexes={@ORM\Index(name="IDX_81398E0919EB6921", columns={"client_id"})})
  * @ORM\Entity
  */
+#[ApiResource(
+    normalizationContext: ['groups' => ['read:collection']],
+)]
 class Customer
 {
     /**
@@ -19,6 +24,7 @@ class Customer
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
+    #[Groups(['read:collection', 'read:item'])]
     private $id;
 
     /**
@@ -26,6 +32,7 @@ class Customer
      *
      * @ORM\Column(name="firstname", type="string", length=255, nullable=false)
      */
+    #[Groups(['read:collection', 'read:item'])]
     private $firstname;
 
     /**
@@ -123,6 +130,4 @@ class Customer
 
         return $this;
     }
-
-
 }
