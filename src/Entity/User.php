@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * User
@@ -19,6 +20,7 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
+    #[Groups('read:Customer:item')]
     private $id;
 
     /**
@@ -54,6 +56,7 @@ class User
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
+    #[Groups('read:item')]
     private $name;
 
     public function getId(): ?int
