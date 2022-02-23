@@ -14,6 +14,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 #[ApiResource(
     normalizationContext: ['groups' => ['read:collection']],
+    itemOperations: [
+        'get' => [
+            'normalization_context' => ['groups' => ['read:Customer:item']],
+        ],
+    ],
 )]
 class Customer
 {
@@ -24,7 +29,7 @@ class Customer
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    #[Groups(['read:collection', 'read:item'])]
+    #[Groups(['read:collection', 'read:Customer:item'])]
     private $id;
 
     /**
@@ -32,7 +37,7 @@ class Customer
      *
      * @ORM\Column(name="firstname", type="string", length=255, nullable=false)
      */
-    #[Groups(['read:collection', 'read:item'])]
+    #[Groups(['read:collection', 'read:Customer:item'])]
     private $firstname;
 
     /**
@@ -40,6 +45,7 @@ class Customer
      *
      * @ORM\Column(name="lastname", type="string", length=255, nullable=false)
      */
+    #[Groups('read:Customer:item')]
     private $lastname;
 
     /**
@@ -47,6 +53,7 @@ class Customer
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=false)
      */
+    #[Groups('read:Customer:item')]
     private $email;
 
     /**
@@ -54,6 +61,7 @@ class Customer
      *
      * @ORM\Column(name="phone", type="string", length=255, nullable=false)
      */
+    #[Groups('read:Customer:item')]
     private $phone;
 
     /**
@@ -64,6 +72,7 @@ class Customer
      *   @ORM\JoinColumn(name="client_id", referencedColumnName="id")
      * })
      */
+    #[Groups('read:Customer:item')]
     private $client;
 
     public function getId(): ?int
