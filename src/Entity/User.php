@@ -97,6 +97,10 @@ class User
         return $this;
     }
 
+    /**
+     *
+     * @return \DateTimeImmutable|null
+     */
     public function getSignUpDate(): ?\DateTimeImmutable
     {
         return $this->signUpDate;
@@ -120,6 +124,4 @@ class User
 
         return $this;
     }
-
-
 }

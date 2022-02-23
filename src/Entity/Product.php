@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Product
@@ -10,6 +12,20 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="product", indexes={@ORM\Index(name="IDX_D34A04AD19EB6921", columns={"client_id"}), @ORM\Index(name="IDX_D34A04AD44F5D008", columns={"brand_id"})})
  * @ORM\Entity
  */
+#[ApiResource(
+    collectionOperations: [
+        'get' => [
+            'normalization_context' => ['groups' => ['read:collection']],
+        ],
+    ],
+    itemOperations: [
+        'get' => [
+            'normalization_context' => ['groups' => ['read:item']],
+        ],
+    ],
+)]
+
+
 class Product
 {
     /**
@@ -19,6 +35,7 @@ class Product
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
+    #[Groups(['read:collection', 'read:item'])]
     private $id;
 
     /**
@@ -26,6 +43,7 @@ class Product
      *
      * @ORM\Column(name="model", type="string", length=255, nullable=false)
      */
+    #[Groups(['read:collection', 'read:item'])]
     private $model;
 
     /**
@@ -33,6 +51,7 @@ class Product
      *
      * @ORM\Column(name="description", type="text", length=0, nullable=false)
      */
+    #[Groups(['read:item'])]
     private $description;
 
     /**
@@ -48,11 +67,13 @@ class Product
     /**
      * @var \Brand
      *
-     * @ORM\ManyToOne(targetEntity="Brand")
+     * @ORM\ManyToOne(targetEntity=Brand::class,  inversedBy="products")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="brand_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="brand_id", referencedColumnName="id"), 
+     *   @ORM\JoinColumn(nullable=false)
      * })
      */
+    #[Groups(['read:item'])]
     private $brand;
 
     public function getId(): ?int
@@ -107,6 +128,4 @@ class Product
 
         return $this;
     }
-
-
 }
