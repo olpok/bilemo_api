@@ -75,6 +75,7 @@ class User
     {
         $this->products = new ArrayCollection();
         $this->customers = new ArrayCollection();
+        $this->sign_up_date = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
