@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -13,6 +14,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity
  */
 #[ApiResource(
+    collectionOperations: [
+        'get',
+        'post',
+    ],
     normalizationContext: ['groups' => ['read:collection']],
     itemOperations: [
         'get' => [
@@ -67,7 +72,7 @@ class Customer
     /**
      * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="client_id", referencedColumnName="id")
      * })

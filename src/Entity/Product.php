@@ -55,16 +55,6 @@ class Product
     private $description;
 
     /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="client_id", referencedColumnName="id")
-     * })
-     */
-    private $client;
-
-    /**
      * @var \Brand
      *
      * @ORM\ManyToOne(targetEntity=Brand::class,  inversedBy="products")
@@ -75,6 +65,11 @@ class Product
      */
     #[Groups(['read:item'])]
     private $brand;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="products")
+     */
+    private $client;
 
     public function getId(): ?int
     {

@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use App\Entity\Customer;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -58,6 +61,21 @@ class User
      */
     #[Groups('read:item')]
     private $name;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="client")
+     */
+    private $products;
+
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Customer::class)]
+    #[Groups("customers:read")]
+    private $customers;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+        $this->customers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -124,6 +142,66 @@ class User
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getClient() === $this) {
+                $product->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Customer[]
+     */
+    public function getCustomers(): Collection
+    {
+        return $this->customers;
+    }
+
+    public function addCustomer(Customer $customer): self
+    {
+        if (!$this->customers->contains($customer)) {
+            $this->customers[] = $customer;
+            $customer->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCustomer(Customer $customer): self
+    {
+        if ($this->customers->removeElement($customer)) {
+            // set the owning side to null (unless already changed)
+            if ($customer->getClient() === $this) {
+                $customer->setClient(null);
+            }
+        }
 
         return $this;
     }
