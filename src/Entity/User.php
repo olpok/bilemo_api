@@ -59,7 +59,7 @@ class User
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
-    #[Groups('read:item')]
+    #[Groups('read:Customer:item')]
     private $name;
 
     /**
