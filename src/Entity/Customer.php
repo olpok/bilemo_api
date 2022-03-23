@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -71,14 +70,8 @@ class Customer
     private $phone;
 
     /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity=User::class)
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="client_id", referencedColumnName="id")
-     * })
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="customers")
      */
-    #[Groups('read:Customer:item')]
     private $client;
 
     public function getId(): ?int
@@ -133,6 +126,18 @@ class Customer
 
         return $this;
     }
+
+    /* public function getClient(): ?User
+    {
+        return $this->client;
+    }
+
+    public function setClient(?User $client): self
+    {
+        $this->client = $client;
+
+        return $this;
+    }*/
 
     public function getClient(): ?User
     {

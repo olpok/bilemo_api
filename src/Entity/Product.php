@@ -100,7 +100,7 @@ class Product
         return $this;
     }
 
-    public function getClient(): ?User
+    /*  public function getClient(): ?User
     {
         return $this->client;
     }
@@ -110,7 +110,7 @@ class Product
         $this->client = $client;
 
         return $this;
-    }
+    }*/
 
     public function getBrand(): ?Brand
     {
@@ -120,6 +120,18 @@ class Product
     public function setBrand(?Brand $brand): self
     {
         $this->brand = $brand;
+
+        return $this;
+    }
+
+    public function getClient(): ?User
+    {
+        return $this->client;
+    }
+
+    public function setClient(?User $client): self
+    {
+        $this->client = $client;
 
         return $this;
     }
