@@ -59,7 +59,6 @@ class Product
      *
      * @ORM\ManyToOne(targetEntity=Brand::class,  inversedBy="products")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="brand_id", referencedColumnName="id"), 
      *   @ORM\JoinColumn(nullable=false)
      * })
      */
