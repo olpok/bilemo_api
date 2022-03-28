@@ -26,7 +26,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
     normalizationContext: ['groups' => ['read:collection']],
     itemOperations: [
         'get' => [
-            'normalization_context' => ['groups' => ['read:Customer:item']],
+            'normalization_context' => [
+                'groups' => ['read:Customer:item'],
+                'cache_headers' => ['expires' => '+1 month', 'public' => true],
+            ],
         ],
         'delete',
     ],
