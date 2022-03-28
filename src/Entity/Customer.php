@@ -88,7 +88,6 @@ class Customer implements UserOwnedInterface
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="customers")
      */
-    #[Groups('read:Customer:item')]
     private $client;
 
     public function getId(): ?int
