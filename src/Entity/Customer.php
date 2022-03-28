@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\UserOwnedInterface;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Customer
@@ -13,6 +15,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Table(name="customer", indexes={@ORM\Index(name="IDX_81398E0919EB6921", columns={"client_id"})})
  * @ORM\Entity
  */
+#[UniqueEntity(
+    fields: ['email'],
+    message: 'Cette adresse email existe déjà!'
+)]
 #[ApiResource(
     collectionOperations: [
         'get',
@@ -43,6 +49,7 @@ class Customer implements UserOwnedInterface
      *
      * @ORM\Column(name="firstname", type="string", length=255, nullable=false)
      */
+    #[Assert\NotBlank(message: 'Le prénom est obligatoire.')]
     #[Groups(['read:collection', 'read:Customer:item'])]
     private $firstname;
 
@@ -51,6 +58,7 @@ class Customer implements UserOwnedInterface
      *
      * @ORM\Column(name="lastname", type="string", length=255, nullable=false)
      */
+    #[Assert\NotBlank(message: 'Le nom est obligatoire.')]
     #[Groups('read:Customer:item')]
     private $lastname;
 
@@ -59,6 +67,10 @@ class Customer implements UserOwnedInterface
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=false)
      */
+    #[Assert\NotBlank]
+    #[Assert\Email(
+        // message: '{{ value }} n\'est pas un email valide.',
+    )]
     #[Groups('read:Customer:item')]
     private $email;
 
@@ -67,6 +79,7 @@ class Customer implements UserOwnedInterface
      *
      * @ORM\Column(name="phone", type="string", length=255, nullable=false)
      */
+    #[Assert\NotBlank(message: 'Le numéro de téléphone est obligatoire.')]
     #[Groups('read:Customer:item')]
     private $phone;
 
