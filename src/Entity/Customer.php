@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\UserOwnedInterface;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -25,7 +26,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         'delete',
     ],
 )]
-class Customer
+class Customer implements UserOwnedInterface
 {
     /**
      * @var int
@@ -72,6 +73,7 @@ class Customer
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="customers")
      */
+    #[Groups('read:Customer:item')]
     private $client;
 
     public function getId(): ?int
