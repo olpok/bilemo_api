@@ -1,5 +1,7 @@
 # bilemo_api
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/55d3602447e24137a3b1fda68c05e182)](https://app.codacy.com/gh/olpok/bilemo_api?utm_source=github.com&utm_medium=referral&utm_content=olpok/bilemo_api&utm_campaign=Badge_Grade_Settings)
+
 About the project
 
 RESTful API made with Symfony 5 and API Platform.
