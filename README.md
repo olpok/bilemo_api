@@ -1,3 +1,5 @@
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/91b7cd500fd64368bb58878729c7abd7)](https://www.codacy.com/gh/olpok/bilemo_api/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=olpok/bilemo_api&amp;utm_campaign=Badge_Grade)
+
 # bilemo_api
 
 About the project
