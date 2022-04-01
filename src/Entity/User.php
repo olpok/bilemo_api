@@ -47,11 +47,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
-     * @var datetime_immutable
-     *
-     * @ORM\Column(name="sign_up_date", type="datetime_immutable", nullable=false)
+     * @ORM\Column(name="sign_up_date", type="datetime_immutable")
      */
-    private $signUpDate;
+    private $sign_up_date;
 
     /**
      * @var string
@@ -76,6 +74,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->products = new ArrayCollection();
         $this->customers = new ArrayCollection();
+        $this->sign_up_date = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
