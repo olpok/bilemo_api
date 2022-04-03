@@ -71,7 +71,7 @@ class Customer implements UserOwnedInterface
      */
     #[Assert\NotBlank]
     #[Assert\Email(
-        // message: '{{ value }} n\'est pas un email valide.',
+        message: '{{ value }} n\'est pas un email valide.',
     )]
     #[Groups('read:Customer:item')]
     private $email;
