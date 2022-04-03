@@ -18,7 +18,15 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[ApiResource(
 
     collectionOperations: [],
-    itemOperations: [],
+    itemOperations: [
+        'get' => [
+            'normalization_context' => [
+                'groups' => ['read:Customer:item'],
+                'cache_headers' => ['expires' => '+1 month', 'public' => true],
+            ],
+        ],
+    ],
+
 )]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {

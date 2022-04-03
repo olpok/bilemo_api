@@ -21,7 +21,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 )]
 #[ApiResource(
     collectionOperations: [
-        'post',
+        'post'
     ],
     normalizationContext: ['groups' => ['read:collection']],
     itemOperations: [
@@ -52,7 +52,7 @@ class Customer implements UserOwnedInterface
      * @ORM\Column(name="firstname", type="string", length=255, nullable=false)
      */
     #[Assert\NotBlank(message: 'Le prénom est obligatoire.')]
-    #[Groups(['read:collection', 'read:Customer:item'])]
+    #[Groups(['read:collection', 'read:Customer:item', 'post:Customer'])]
     private $firstname;
 
     /**
@@ -82,12 +82,13 @@ class Customer implements UserOwnedInterface
      * @ORM\Column(name="phone", type="string", length=255, nullable=false)
      */
     #[Assert\NotBlank(message: 'Le numéro de téléphone est obligatoire.')]
-    #[Groups('read:Customer:item')]
+    #[Groups('read:Customer:item', 'post:Customer')]
     private $phone;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="customers")
      */
+    #[Groups('read:Customer:item')]
     private $client;
 
     public function getId(): ?int
@@ -142,18 +143,6 @@ class Customer implements UserOwnedInterface
 
         return $this;
     }
-
-    /* public function getClient(): ?User
-    {
-        return $this->client;
-    }
-
-    public function setClient(?User $client): self
-    {
-        $this->client = $client;
-
-        return $this;
-    }*/
 
     public function getClient(): ?User
     {
